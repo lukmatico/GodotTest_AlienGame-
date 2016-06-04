@@ -2,6 +2,7 @@
 extends Area2D
 
 const SPEED = 200.0
+var GameOver = false
 
 func _process(delta):
 	#delta equivale al tiempo
@@ -14,6 +15,8 @@ func _process(delta):
 		dir += Vector2(-1,0)
 	if(Input.is_action_pressed("move_right")):
 		dir += Vector2(1,0)
+	if(Input.is_action_pressed("shoot")):
+		ShootEvent()
 	
 	
 	#translate(dir * delta * SPEED)
@@ -28,5 +31,15 @@ func _process(delta):
 	set_pos(pos)
 func _ready():
 	set_process(true)
+	
+func oneDown():
+	if(GameOver == true):
+		return
+	
+	get_node("Particle").show()
+	get_node("Sprite").hide()
+	
+	GameOver = true
 
-
+func ShootEvent():
+	pass
